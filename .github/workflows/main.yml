@@ -1,0 +1,13 @@
+name: palindrome
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  palindrome-check:
+    runs-on: ubuntu-latest
+    steps:
+
+      - name: Run palindrome check
+        run: python palindrome.py
