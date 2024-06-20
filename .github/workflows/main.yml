@@ -1,23 +1,31 @@
-name: Palindrome Workflow
-on:
-  push:
-    branches:
-      - main
+name: Palindrome Check
+
+on: [push, pull_request]
 
 jobs:
-  palindrome-check:
+  palindrome_job:
+    name: Check if string is a palindrome
     runs-on: ubuntu-latest
+    
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v2
+    - name: Checkout code
+      uses: actions/checkout@v2
+      
+    - name: Set up Python
+      uses: actions/setup-python@v2
+      with:
+        python-version: '3.x' 
 
-      - name: Set up Python
-        uses: actions/setup-python@v2
-        with:
-          python-version: 3.x
+    - name: Run Python script
+      run: |
+        python - <<EOF
+        def isPalindrome(s):
+            return s == s[::-1]
 
-      - name: Install dependencies
-        run: pip install -r requirements.txt
-
-      - name: Run palindrome check
-        run: python palindrome_checker.py
+        s = "malayalam"
+        ans = isPalindrome(s)
+        if ans:
+            print("Yes")
+        else:
+            print("No")
+        EOF
